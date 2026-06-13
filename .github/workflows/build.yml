@@ -15,7 +15,7 @@ jobs:
 
       - name: Download LeviLamina SDK
         run: |
-          wget https://github.com/LiteLoader-Dev/LeviLamina/releases/latest/download/LeviLamina-Dev-Linux.zip -O sdk.zip
+          wget https://github.com/LiteLDev/LeviLamina/releases/download/v26.10.14/levilamina-v26.10.14-server-release-windows-x64.zip -O sdk.zip
           mkdir -p /opt/levilamina-sdk
           unzip sdk.zip -d /opt/levilamina-sdk
 
@@ -26,7 +26,7 @@ jobs:
           echo "=== include? ==="
           find /opt/levilamina-sdk -name "*.h" | head -20
           echo "=== lib? ==="
-          find /opt/levilamina-sdk -name "*.so" -o -name "*.a" | head -20
+          find /opt/levilamina-sdk -name "*.so" -o -name "*.a" -o -name "*.lib" | head -20
 
       - name: Build
         run: |
