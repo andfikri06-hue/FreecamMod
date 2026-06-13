@@ -6,15 +6,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt install cmake clang -y
+        run: |
+          sudo apt update
+          sudo apt install cmake clang unzip wget -y
 
       - name: Download LeviLamina SDK
         run: |
-          wget https://github.com/LiteLDev/LeviLamina/releases/download/v0.x.x/sdk.zip
+          wget https://github.com/LiteLoader-Dev/LeviLamina/releases/latest/download/LeviLamina-Dev-Linux.zip -O sdk.zip
+          mkdir -p /opt/levilamina-sdk
           unzip sdk.zip -d /opt/levilamina-sdk
+
+      - name: Debug SDK structure
+        run: |
+          echo "=== SDK root ==="
+          ls -la /opt/levilamina-sdk/
+          echo "=== include? ==="
+          find /opt/levilamina-sdk -name "*.h" | head -20
+          echo "=== lib? ==="
+          find /opt/levilamina-sdk -name "*.so" -o -name "*.a" | head -20
 
       - name: Build
         run: |
@@ -25,5 +37,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: FreecamMod.so
-          path: build/FreecamMod.so
+          name: FreecamMod-SharedObject
+          path: build/*.so
