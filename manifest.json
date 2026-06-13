@@ -1,0 +1,10 @@
+{
+    "name": "FreecamMod",
+    "description": "Server-side freecam with SimulatedPlayer body dummy (Java-Edition style)",
+    "version": "1.0.0",
+    "type": "native",
+    "entry": "FreecamMod.so",
+    "author": "Mhlukhidup",
+    "license": "MIT",
+    "dependencies": []
+}

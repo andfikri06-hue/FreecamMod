@@ -1,0 +1,29 @@
+name: Build FreecamMod
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt install cmake clang -y
+
+      - name: Download LeviLamina SDK
+        run: |
+          wget https://github.com/LiteLDev/LeviLamina/releases/download/v0.x.x/sdk.zip
+          unzip sdk.zip -d /opt/levilamina-sdk
+
+      - name: Build
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release \
+                -DLEVILAMINA_SDK_DIR=/opt/levilamina-sdk
+          cmake --build build -j4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: FreecamMod.so
+          path: build/FreecamMod.so
